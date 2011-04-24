@@ -1,0 +1,79 @@
+#SIGNKEY=/root/binpatch_id_rsa
+
+MASTER_SITE_OPENBSD=ftp://ftp.openbsd.org/pub/
+
+# List of patches for all architectures
+PATCH_COMMON=001_bgpd 002_pci 003_vr 004_openssl 005_pf 006_cbc 007_rtsock 008_openssl 009_pf 010_sis
+
+# List of patches for i386 only
+PATCH_I386=
+
+# bin, sbin and libc are not patches, and not always needed. They are here
+# to serve as a source for a patch target if its instructions includes, for
+# example: "And then rebuild and install libc"
+
+bin:
+	cd ${WRKSRC}/bin && (${_obj}; ${_cleandir}; ${_depend} && ${_build})
+
+sbin:
+	cd ${WRKSRC}/sbin && (${_obj}; ${_cleandir}; ${_depend} && ${_build})
+
+libc:
+	cd ${WRKSRC}/lib/libc && \
+	(${_obj}; ${_cleandir}; ${_depend} && ${_build})
+
+#===========================================================================
+# The patch targets start here.
+#
+# Care should be taken for writing valid rules for make.
+# The instructions must be taken from the top of each patch file, with some
+# rewrites:
+#
+# - Paths relative to src/ must be made relative to ${WRKSRC}/
+# - make targets must be changed for their counterparts provided by binpatch:
+#	make obj:		${_obj}
+#	make cleandir:		${_cleandir}
+#	make depend:		${_depend}
+#	make install:		${_install}
+#	make && make install:	${_build}
+#
+#	make -f Makefile.bsd-wrapper obj:		${_obj_wrp}
+#	make -f Makefile.bsd-wrapper cleandir:		${_cleandir_wrp}
+#	make -f Makefile.bsd-wrapper depend:		${_depend_wrp}
+#	make -f Makefile.bsd-wrapper && 
+#		make -f Makefile.bsd-wrapper install:	${_build_wrp}
+#	make -f Makefile.bsd-wrapper install:		${_install_wrp}
+#
+#
+#
+001_bgpd:
+	cd ${WRKSRC}/usr.sbin/bgpd && \
+	(${_obj}; ${_depend}; ${_build})
+
+002_pci: _kernel
+
+003_vr: _kernel
+
+004_openssl: 
+	cd ${WRKSRC}/lib/libssl && \
+	(${_obj}; ${_depend}; ${_includes}; ${_build})
+	cd ${WRKSRC}/sbin && \
+	(${_obj}; ${_depend}; ${_build})
+
+005_pf: _kernel
+
+006_cbc: _kernel
+
+007_rtsock: _kernel
+
+008_openssl: 
+	cd ${WRKSRC}/lib/libssl && \
+	(${_obj}; ${_depend}; ${_includes}; ${_build})
+	cd ${WRKSRC}/sbin && \
+	(${_obj}; ${_depend}; ${_build})
+
+009_pf: _kernel
+
+010_sis: _kernel
+
+.include "bsd.binpatch.mk"
