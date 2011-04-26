@@ -1,5 +1,7 @@
 #SIGNKEY=/root/binpatch_id_rsa
 
+MAINTAINER_NAME=z0mbix (zombie@zombix.org)
+
 MASTER_SITE_OPENBSD=ftp://ftp.openbsd.org/pub/
 
 # List of patches for all architectures
