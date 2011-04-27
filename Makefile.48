@@ -2,7 +2,9 @@
 
 MAINTAINER_NAME=z0mbix (zombie@zombix.org)
 
-MASTER_SITE_OPENBSD=ftp://ftp.openbsd.org/pub/
+# See http://openbsd.org/ftp.html for mirror list:
+#MASTER_SITE_OPENBSD=ftp://ftp.openbsd.org/pub/
+MASTER_SITE_OPENBSD=ftp://mirror.bytemark.co.uk/pub/
 
 # List of patches for all architectures
 PATCH_COMMON=001_bgpd 002_pci 003_vr 004_openssl 005_pf 006_cbc 007_rtsock 008_openssl 009_pf 010_sis
