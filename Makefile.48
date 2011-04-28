@@ -1,6 +1,7 @@
 #SIGNKEY=/root/binpatch_id_rsa
 
-MAINTAINER_NAME=z0mbix (zombie@zombix.org)
+# Required if creating packages
+MAINTAINER_NAME="z0mbix (zombie@zombix.org)"
 
 # See http://openbsd.org/ftp.html for mirror list:
 #MASTER_SITE_OPENBSD=ftp://ftp.openbsd.org/pub/
